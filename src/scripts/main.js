@@ -11,22 +11,22 @@ const firstPromise = new Promise((resolve, reject) => {
 });
 
 firstPromise
-  .then((res) => createMessage(res, 'success'))
-  .catch((err) => createMessage(err, 'error'));
+  .then((res) => newMessage(res, 'success'))
+  .catch((err) => newMessage(err, 'error'));
 
 const secondPromise = new Promise((resolve) => {
   document.addEventListener('click', (e) => {
-    resolve('Second promise was resolved');
+    resolve('success');
   });
 
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 
-    resolve('Second promise was resolved');
+    resolve('Second promise');
   });
 });
 
-secondPromise.then((res) => createMessage(res, 'success'));
+secondPromise.then(() => newMessage('Second promise was resolved', 'success'));
 
 const leftClick = new Promise((resolve) => {
   document.addEventListener('click', () => resolve('success'));
@@ -41,9 +41,9 @@ const rightClick = new Promise((resolve) => {
 
 const thirdPromise = Promise.all([leftClick, rightClick]);
 
-thirdPromise.then(() => createMessage('Third promise was resolved', 'success'));
+thirdPromise.then(() => newMessage('Third promise was resolved', 'success'));
 
-function createMessage(text, classMessage) {
+function newMessage(text, classMessage) {
   const message = document.createElement('div');
 
   message.classList.add(classMessage);
